@@ -33,6 +33,11 @@ Each project comes with its complications and challenges. Our team also had to f
 
 
 
+### Contributors:
+Ashmit JaiSarita Gupta
+Ankush Verma
+Divyam Jha
+
 ### 📊 **Stats we got from idea validation:**
 
 ![](readme_img/ivq01.png)
