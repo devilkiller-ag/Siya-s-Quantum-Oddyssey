@@ -35,8 +35,11 @@ Each project comes with its complications and challenges. Our team also had to f
 
 ### Contributors:
 Ashmit JaiSarita Gupta
+<br>
 Ankush Verma
+<br>
 Divyam Jha
+<br>
 
 ### 📊 **Stats we got from idea validation:**
 
