@@ -15,6 +15,100 @@ const canvas = document.querySelector('canvas'); // To store canvas element of D
 const c = canvas.getContext('2d'); //Canvas element method to obtain the rendering context and its drawing functions for 2D Graphics.
 
 let scoreEl = document.querySelector('#score-el')
+let statusEl = document.querySelector('#status-el')
+
+// making construct-box
+const icon = document.querySelector('.icon')
+const constructBox = document.querySelector('.construct-box')
+icon.onclick = function() {
+  constructBox.classList.toggle('active')
+}
+
+let constructCode = document.querySelector('#myconstruct')
+constructCode.addEventListener('keypress', function(e) {
+  if (e.keyCode === 13) {
+    let constructCodesObj = localStorage.getItem("constructCodes")
+    if(constructCodesObj == null) {
+      constructCodesObj = []
+    } else {
+      constructCodesObj = JSON.parse(constructCodesObj);
+    }
+    constructCodesObj.push(constructCode.value)
+    localStorage.setItem('constructCodes', JSON.stringify(constructCodesObj));
+    constructCode.value = '';
+    console.log(constructCodesObj)
+    constructBox.classList.toggle('active')
+    // canvas.focus();
+  }
+})
+
+// to store values of feature that are activated or not
+let active_status = {
+  ket_zero: false,
+  x_gate: false,
+  player_ready_to_fight: false
+}
+
+function activator () {
+  let constructCodesObj = localStorage.getItem("constructCodes")
+  if(constructCodesObj == null) {
+    constructCodesObj = []
+  } else {
+    constructCodesObj = JSON.parse(constructCodesObj);
+  }
+
+  // Enable P layer White Qubit if player successfully enters how to make Quantum Circuit
+  if(constructCodesObj[0] == 'QuantumCircuit(1000)') {
+    active_status.ket_zero = true
+    // console.log(active_status.ket_zero)
+    // voice_x_gate()
+  } else {
+    constructCodesObj.splice(0, 1)
+    console.log(localStorage)
+  }
+
+  // Enable Player Black Qubit through X gate if player successfully enters how to apply x gate
+  if(constructCodesObj[1] == 'qc.x(0)') {
+    active_status.x_gate = true
+    // console.log(active_status.x_gate)
+  } else {
+    constructCodesObj.splice(1, 1)
+  }
+}
+
+// alan ai functionality
+var alanBtnInstance = alanBtn({
+  key: "1519c226ce797a851790f415601e0cdc2e956eca572e1d8b807a3e2338fdd0dc/stage",
+  onCommand: function (commandData) {
+    if (commandData.command === "go:back") {
+        //call client code that will react on the received command
+      }
+    },  
+    // getting error here
+    // onButtonState: async function(status) {
+    //   if(status === 'ONLINE') {
+    //     await alanBtnInstance.activate();
+    //     alanBtnInstance.playText('This is You');
+    //   }
+    // },
+    rootEl: document.getElementById("alan-btn"),
+})
+
+// function voice_x_gate() {
+//   alanBtnInstance.activate();
+//   alanBtnInstance.callProjectApi("xgate", {value: "your data"}, function(error, result) {
+//     console.log(error);
+//   })
+// }
+
+// Adding background music
+// var bgm;
+
+// function preload() {
+//   bgm = loadSound("../sounds/bgm01.mp3")
+// }
+
+// bgm.play()
 
 canvas.width = innerWidth; // Setting canvas width to windows width
 canvas.height = innerHeight; // Setting canvas height to windows height
@@ -260,7 +354,7 @@ let randomStarSpawnRate = 150;
 let randomEnemyQubitSpawnRate = 700;
 
 // Array to store colors of qubit representing diffrent states of qubit
-let qubitColors = [ 'white', 'black', '#A6A6A6' ]; // white - 0, black - 1, #A6A6A6 - Grey - H|0> - Superposition
+let qubitColors = [ '#FFFFFF', '#1D1F1F', '#FFBBD6']; // FFFFFF - 0, 1D1F1F - 1, #FFBBD6 - Grey - H|0> - Superposition
 
 // keys Object to store of keys pressed or not (initially keys are not pressed so false)
 const keys = {
@@ -283,49 +377,54 @@ let score = 0
 function init() {
   platformImage = createImage(platform);
 
+  // Clearing local Storage for storing fresh data of new games
+  localStorage.clear()
+
   player = new Player();
+
+  statusEl.innerHTML = ''
 
   // Creating objects of platforms and drawing them at different location
   platforms = [
-    new Platform({
-      x: platformImage.width * 4 + 9,
-      y: 350,
-      image: platformSmallTallImage
-    }),
-    new Platform({
-      x: -1,
-      y: 560,
-      image: platformImage
-    }),
-    new Platform({
-      x: platformImage.width - 3,
-      y: 560,
-      image: platformImage
-    }),
-    new Platform({
-      x: platformImage.width * 2 + 150,
-      y: 560,
-      image: platformImage
-    }),
-    new Platform({
-      x: platformImage.width * 3 + 300,
-      y: 560,
-      image: platformImage
-    }),
-    new Platform({
-      x: platformImage.width * 4 + 900,
-      y: 560,
-      image: platformImage
-    })
+  new Platform({
+    x: platformImage.width * 4 + 9,
+    y: 350,
+    image: platformSmallTallImage
+  }),
+  new Platform({
+    x: -1,
+    y: 560,
+    image: platformImage
+  }),
+  new Platform({
+    x: platformImage.width - 3,
+    y: 560,
+    image: platformImage
+  }),
+  new Platform({
+    x: platformImage.width * 2 + 150,
+    y: 560,
+    image: platformImage
+  }),
+  new Platform({
+    x: platformImage.width * 3 + 300,
+    y: 560,
+    image: platformImage
+  }),
+  new Platform({
+    x: platformImage.width * 4 + 900,
+    y: 560,
+    image: platformImage
+  })
   ];
 
   // Creating objects of generic objects and drawing them at different location
   genericObjects = [
-    new GenericObject({
-      x: -1,
-      y: 100,
-      image: createImage(hills)
-    })
+  new GenericObject({
+    x: -1,
+    y: 100,
+    image: createImage(hills)
+  })
   ];
 
   // Creating background stars
@@ -344,6 +443,8 @@ function init() {
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate); //Repeatedly creates an animation by executing code( inside animate() ) again and again as user makes changes to screen
+
+  activator();
 
   // Resetting our canvas color
   c.fillStyle = backgroundGradient;
@@ -389,11 +490,11 @@ function animate() {
   }
 
   // Creating enemy qubits
-  if (ticker % randomEnemyQubitSpawnRate == 0) {
+  if (active_status.player_ready_to_fight && ticker % randomEnemyQubitSpawnRate == 0) {
     const x = canvas.width + 100;
     const y = player.position.y + player.height / 2;
     const radius = 12;
-    const x_vel = -15;
+    const x_vel = -12;
     const color = qubitColors[utils.randomIntFromRange(0, 2)];
     enemyQubits.push(new Qubit(x, y, radius, x_vel, color));
     randomEnemyQubitSpawnRate = utils.randomIntFromRange(300, 400);
@@ -414,6 +515,8 @@ function animate() {
     playerQubits.forEach((playerQubit, indexPQ) => {
       if(playerQubit.position.x + playerQubit.radius >= enemyQubit.position.x - enemyQubit.radius && 
         playerQubit.position.y === enemyQubit.position.y) {
+        // Only opposite qubit will cancel each other and for level 1 Siya has no extension in here gun t destroy |+> state
+      if((playerQubit.color == '#FFFFFF' && enemyQubit.color == '#1D1F1F') || (playerQubit.color == '#1D1F1F' && enemyQubit.color == '#FFFFFF')) {
         score += 100
         scoreEl.innerHTML = score
         setTimeout(() => {
@@ -421,11 +524,16 @@ function animate() {
           playerQubits.splice(indexPQ, 1)
         }, 0)
       }
-    })
+    }
+  })
 
     // Loose condition 2: Enemy Qubit hits Player
-    if(player.position.y === enemyQubit.position.y && player.position.x + player.width >= enemyQubit.position.x - enemyQubit.radius) {
-      console.log('lost due to hit')
+    if(player.position.x + player.width >= enemyQubit.position.x - enemyQubit.radius && player.position.y + player.height / 2 === enemyQubit.position.y) {
+      enemyQubits = []
+      playerQubits = []
+      stars = []
+      backgroundStars = []
+      init()
     }
   });
 
@@ -445,37 +553,37 @@ function animate() {
   player.update();
 
   if (
-     (keys.right.pressed && player.position.x < 0.75 * canvas.width)|| 
+   (keys.right.pressed && player.position.x < 0.75 * canvas.width)|| 
      (keys.right.pressed && scrollOffset === 2930 && player.position.x > 0) // So that scrren don't mobe more right when win position is reached
-  ) {
+     ) {
     player.velocity.x = player.speed;
-  } else if (
-    (keys.left.pressed && player.position.x > 0.1 * canvas.width) ||
+} else if (
+  (keys.left.pressed && player.position.x > 0.1 * canvas.width) ||
     (keys.left.pressed && scrollOffset === 0 && player.position.x > 0) // So that scrren don't move more left at scrollOfset = 0
-  ) {
-    player.velocity.x = -player.speed;
-  } else {
-    player.velocity.x = 0;
+    ) {
+  player.velocity.x = -player.speed;
+} else {
+  player.velocity.x = 0;
 
-    if (keys.right.pressed) {
-      scrollOffset += player.speed;
-      platforms.forEach((platform) => {
-        platform.position.x -= player.speed;
-      });
-      genericObjects.forEach((genericObject) => {
-        genericObject.position.x -= player.speed * 0.66;
-      });
-    } else if (keys.left.pressed && scrollOffset > 0) {
-      scrollOffset -= player.speed;
-      platforms.forEach((platform) => {
-        platform.position.x += player.speed;
-      });
+  if (keys.right.pressed) {
+    scrollOffset += player.speed;
+    platforms.forEach((platform) => {
+      platform.position.x -= player.speed;
+    });
+    genericObjects.forEach((genericObject) => {
+      genericObject.position.x -= player.speed * 0.66;
+    });
+  } else if (keys.left.pressed && scrollOffset > 0) {
+    scrollOffset -= player.speed;
+    platforms.forEach((platform) => {
+      platform.position.x += player.speed;
+    });
 
-      genericObjects.forEach((genericObject) => {
-        genericObject.position.x += player.speed * 0.66;
-      });
-    }
+    genericObjects.forEach((genericObject) => {
+      genericObject.position.x += player.speed * 0.66;
+    });
   }
+}
 
   // Roof Collision
   if (player.position.y + player.velocity.y - 10 <= 0) {
@@ -487,30 +595,34 @@ function animate() {
     if (
       player.position.y + player.height <= platform.position.y /* For making player stop above platform */ &&
       player.position.y + player.height + player.velocity.y >=
-        platform.position.y /* For making it stop only when it hits the platform */ &&
+      platform.position.y /* For making it stop only when it hits the platform */ &&
       player.position.x + player.width >=
-        platform.position.x /* For making it fall when its on left side of pltform  */ &&
+      platform.position.x /* For making it fall when its on left side of pltform  */ &&
       player.position.x <= platform.position.x + platform.width
-    ) {
+      ) {
       /* For making it fall when its on left side of pltform  */
-      player.velocity.y = 0;
-    }
-  });
+    player.velocity.y = 0;
+  }
+});
 
   // Win Codition
   if (scrollOffset > platformImage.width * 4 + 500) {
     console.log('Win');
+    statusEl.innerHTML = 'You Win!'
   }
 
   // Lose Condition - 1: Death Pit
   if (player.position.y > canvas.height) {
     // Resetting stars array so that previous stars clear away when level is re-played after death
     stars = [];
+    backgroundStars = []
     // miniStars = []
     console.log('You Lose');
+    statusEl.innerHTML = 'You Lose';
     init();
   }
 }
+
 init();
 animate();
 
@@ -522,36 +634,44 @@ addEventListener('keydown', ({ keyCode }) => {
       // console.log('Left Keydown');
       keys.left.pressed = true;
       break;
-    case 39:
+      case 39:
       // console.log('Right Keydown');
       keys.right.pressed = true;
       break;
-    case 38:
+      case 38:
       // console.log('Up Keydown');
       keys.up.pressed = true;
       player.velocity.y -= 15;
       break;
-    case 40:
+      case 40:
       // console.log('Down Keydown');
       break;
 
     // Qubit Spawning
     case 81: // q: spawning qubit |0>
+    if(active_status.ket_zero) {
       const x_white = player.position.x + player.width + 12;
       const y_white = player.position.y + player.height / 2;
       const radius_white = 12;
-      const color_white = 'white';
-      const x_vel_white = 15;
+      const color_white = '#FFFFFF';
+      const x_vel_white = 12;
       playerQubits.push(new Qubit(x_white, y_white, radius_white, x_vel_white, color_white));
       // console.log(playerQubits);
-      break;
+    }
+    break;
     case 88: // q: spawning qubit |1>
+    if(active_status.x_gate) {
       const x_black = player.position.x + player.width + 12;
       const y_black = player.position.y + player.height / 2;
       const radius_black = 12;
-      const color_black = 'black';
-      const x_vel_black = 15;
+      const color_black = '#1D1F1F';
+      const x_vel_black = 12;
       playerQubits.push(new Qubit(x_black, y_black, radius_black, x_vel_black, color_black));
+    }
+    break;
+    case 32:
+    active_status.player_ready_to_fight = true
+    break;
   }
 });
 
@@ -562,15 +682,15 @@ addEventListener('keyup', ({ keyCode }) => {
       // console.log('Left Keyup');
       keys.left.pressed = false;
       break;
-    case 39:
+      case 39:
       // console.log('Right Keyup');
       keys.right.pressed = false;
       break;
-    case 38:
+      case 38:
       // console.log('Up Keyup');
       break;
-    case 40:
+      case 40:
       // console.log('Down Keyup');
       break;
-  }
-});
+    }
+  });

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sia's Quantum Oddessy</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo">Siya's Quantum Oddessy</a>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="/about/about.html">About</a></li>
+            <li><a href="#">Game</a></li>
+            <li><a href="/contact/contact.html">Contact</a></li>
+        </ul>
+    </header>
+
+    <section>
+        <img src="./assets/stars.png" id="stars">
+        <img src="./assets/moon.png" id="moon">
+        <img src="./assets/mountains_behind.png" id="mountains_behind">
+        <h2 id="text">Siya's Quantum Oddessy</h2>
+        <a href="Game" id="btn">Play</a>
+        <img src="./assets/mountains_front.png" id="mountains_front">
+    </section>
+    <div class="sec" id="sec">
+        <h2>About the game</h2>
+        <p> In a night full of star showers, Sia is out on an adventure to explore the beguiling world of Quantum Computers. But, an evil demon Raka, with his Super-Quantum Gun wants to rule the planet by not letting anyone in this world know about powerful Quantum Technology. Raka is trying to kill Siya with qubit balls shot by his powerful quantum gun. She has to defeat the enemy's qubit balls with her gun. But her gun is not so advanced. Help Siya in her journey to upgrade her weapons and defeat the demon.
+            <br><br>
+            Initially, a red box represents our character Siya. We will add sprite for her in future.
+            The game integrates the concept of Quantum Mechanics and Quantum Computing in a relaxing manner. Initially, we have built the prototype of the game with only one level explaining qubit and quantum Circuit. The player can change the qubit state by first writing qiskit code in the constructing box and then using Key Q for a qubit in state |0> and X for a qubit in state |1>. We have planned to make some levels before this level for making players understand classical bits, superposition, interference, and entanglement before coming to this level. More interesting levels after this level will be for telling users how different gates work on the qubit. This game is only a small prototype of what we are thinking to build.
+
+            <br><br>
+            We will be adding the concept of coins to earn and use them to buy qubit shots and upgrade weapons as the development proceeds.
+            <br><br>
+        </p>
+    </div>
+
+    <script>
+        let stars = document.getElementById("stars")
+        let moon = document.getElementById("moon")
+        let mountains_behind = document.getElementById("mountains_behind")
+        let mountains_front = document.getElementById("mountains_front")
+        let text = document.getElementById("text")
+        let btn = document.getElementById("btn")
+        let header = document.querySelector('header')
+
+        addEventListener('scroll', function () { // Scrooling effects
+
+            let value = scrollY;
+            stars.style.left = Math.min(value * 0.25, stars.height) + "px";
+            moon.style.top = Math.min(value * 1.05, moon.height) + "px";
+            mountains_behind.style.top = Math.min(value * 0.5, mountains_behind.height) + "px";
+            mountains_front.style.top = Math.min(value * 0, mountains_front.height) + "px";
+            text.style.marginRight = value * 4 + 'px';
+            text.style.marginTop = value * 0.5 + 'px';
+            btn.style.marginTop = value * 1.5 + 'px';
+            header.style.top = value * 0.5 + 'px';
+        })
+    </script>
+</body>
+
+</html>

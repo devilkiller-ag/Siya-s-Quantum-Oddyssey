@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siya's Quantum Oddessy</title>
+  <link rel="stylesheet" href="about.css">
+</head>
+
+<body>
+  <header>
+    <a href="#" class="logo">Siya's Quantum Oddessy</a>
+    <ul>
+      <li><a href="/home/home.html">Home</a></li>
+      <li><a href="#" class="active">About</a></li>
+      <li><a href="#">Game</a></li>
+      <li><a href="/contact/contact.html">Contact</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <img src="./assets/stars.png" id="stars">
+    <img src="./assets/moon.png" id="moon">
+    <img src="./assets/mountains_behind.png" id="mountains_behind">
+    <h2 id="text">About</h2>
+    <a href="Game" id="btn">Play</a>
+    <img src="./assets/mountains_front.png" id="mountains_front">
+  </section>
+  <div class="sec" id="sec">
+    <section>
+
+      <div class="img-slider">
+        <div class="slide active">
+          <img src="./assets/1.png" alt="">
+          <div class="info">
+            <h3>1: Are you from a Quantum Information and Science Background or do you have some Knowledge of Quantum
+              Computing ?'</h3>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="./assets/2.png" alt="">
+          <div class="info">
+            <h3>2: Do you feel that school students should be made aware of the basics of quantum computers and their
+              needs?</h3>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="./assets/3.png" alt="">
+          <div class="info">
+            <h3>3: How much do you agree with the point that games are is good medium for making students aware about
+              Quantum Computing and its application?</h3>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="./assets/4.png" alt="">
+          <div class="info">
+            <h3> 4: Will you play or recommend these types of games to others?</h3>
+          </div>
+        </div>
+        <div class="navigation">
+          <div class="btn active"></div>
+          <div class="btn"></div>
+          <div class="btn"></div>
+          <div class="btn"></div>
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        var slides = document.querySelectorAll('.slide');
+        var btns = document.querySelectorAll('.btn');
+        let currentSlide = 1;
+
+        // Javascript for image slider manual navigation
+        var manualNav = function (manual) {
+          slides.forEach((slide) => {
+            slide.classList.remove('active');
+
+            btns.forEach((btn) => {
+              btn.classList.remove('active');
+            });
+          });
+
+          slides[manual].classList.add('active');
+          btns[manual].classList.add('active');
+        }
+
+        btns.forEach((btn, i) => {
+          btn.addEventListener("click", () => {
+            manualNav(i);
+            currentSlide = i;
+          });
+        });
+
+        // Javascript for image slider autoplay navigation
+        var repeat = function (activeClass) {
+          let active = document.getElementsByClassName('active');
+          let i = 1;
+
+          var repeater = () => {
+            setTimeout(function () {
+              [...active].forEach((activeSlide) => {
+                activeSlide.classList.remove('active');
+              });
+
+              slides[i].classList.add('active');
+              btns[i].classList.add('active');
+              i++;
+
+              if (slides.length == i) {
+                i = 0;
+              }
+              if (i >= slides.length) {
+                return;
+              }
+              repeater();
+            }, 10000);
+          }
+          repeater();
+        }
+        repeat();
+      </script>
+    </section>
+
+    <section>
+
+      <div class="pre" id="pre">
+        <h2>Pre-Build Review</h2>
+        <li> Try to make user interface of application easy so that students play game without hustle. Give points for
+          different levels so that those interested already get a fair chance. If possible in future integrate other
+          concepts also of Science.
+
+          As a whole All the best for future. ✨🔥</li><br><br>
+        <li> Well done Bois keep it up!! </li><br><br>
+        <li> School students after seeing your game:"Replace our history books with quantum games!</li><br><br>
+        <li> Make it happen my friends. Good wishes and Good luck to you.</li><br><br>
+        <li> Quantum Computing can help us to form more complex games as we can play b/w 0 and 1,while our classical
+          computer can 0 and 1. So ,we can make such interesting game in which user have most less probability to win
+          that game.</li><br><br>
+        <li> The game needs to have levels and be fun with proper scaling and only slight increase in complexity with
+          each level.</li>
+      </div>
+    </section>
+    <br><br>
+    <br><br>
+
+
+    <section>
+      <div class="about" id="about">
+        <h2>ABOUT US</h2>
+        <p align="left">Our team consists of three participants: Ashmit JaiSarita Gupta, Divyam Jha and Ankush Verma.
+          All of us are Engineering Physics Undergraduate Freshers at NIT Hamirpur. Let’s take a look at our team
+          members' backgrounds.
+          <br><br>
+          Ashmit JaiSarita Gupta is the leader of our team. He belongs to Azamgarh, Uttar Pradesh. He has a keen
+          interest in the field of Quantum Information Science and Engineering, Data Structures and Game Development.
+          Currently, he is learning QC to explore the field. He is working on game design, storyline and its
+          implementation through JavaScript and Alan AI.
+          <br><br>
+          Divyam Jha is a member of our team. He is from Muzaffarpur, Bihar. Some of his major fields of interest
+          include Quantum mechanics, Quantum computing and astrophysics.
+          Currently, Divyam is also learning QC to enhance his knowledge and apply it in further opportunities. He plans
+          to be a physicist in the future. He is contributing to web design, textual and graphical content of the
+          website.
+          <br><br>
+          Ankush Verma is a member of our team. He is from Mandi, Himachal Pradesh. His major fields of interest include
+          Quantum computing, Defence services and web development.Currently, he is learning QC and preparing for further
+          defence services examinations.He plans to serve the country with his pride and honour. Ankush is working on
+          the project website and its implementation.
+        </p>
+        <br><br>
+
+    </section>
+    <div class="container">
+
+      <form action="https://formspree.io/f/meqnglyg" method="POST" id="my-form">
+
+        <div class="form-group">
+          <label for="Name">Name</label>
+          <input type="text" id="Name" name="Name">
+        </div>
+        <div class="form-group">
+          <label for="Email">Email</label>
+          <input type="Email" id="Email" name="Email">
+        </div>
+        <div class="form-group">
+          <label for="Phone no">Phone no</label>
+          <input type="text" id="Phone no" name="Phone no">
+        </div>
+        <div class="form-group">
+          <label for="Message">How can we help you</label>
+          <textarea name="message" id="message" cols="30" rows="5"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div id="status"></div>
+
+
+
+    <script>
+      let stars = document.getElementById("stars")
+      let moon = document.getElementById("moon")
+      let mountains_behind = document.getElementById("mountains_behind")
+      let mountains_front = document.getElementById("mountains_front")
+      let text = document.getElementById("text")
+      let btn = document.getElementById("btn")
+      let header = document.querySelector('header')
+
+      addEventListener('scroll', function () { // Scrooling effects
+        let value = scrollY;
+        stars.style.left = Math.min(value * 0.25, stars.height) + "px";
+        moon.style.top = Math.min(value * 1.05, moon.height) + "px";
+        mountains_behind.style.top = Math.min(value * 0.5, mountains_behind.height) + "px";
+        mountains_front.style.top = Math.min(value * 0, mountains_front.height) + "px";
+        text.style.marginRight = value * 4 + 'px';
+        text.style.marginTop = value * 0.5 + 'px';
+        btn.style.marginTop = value * 1.5 + 'px';
+        header.style.top = value * 0.5 + 'px';
+      })
+
+    </script>
+    <script src="/about/about.js"></script>
+</body>
+
+</html>
