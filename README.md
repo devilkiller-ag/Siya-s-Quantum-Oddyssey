@@ -34,11 +34,11 @@ Each project comes with its complications and challenges. Our team also had to f
 
 
 ### Contributors:
-Ashmit JaiSarita Gupta
+Ashmit JaiSarita Gupta - Game Design and Development
 <br>
-Ankush Verma
+Ankush Verma - Website Development
 <br>
-Divyam Jha
+Divyam Jha - Content Writer
 <br>
 
 ### 📊 **Stats we got from idea validation:**
