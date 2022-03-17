@@ -34,9 +34,9 @@ Each project comes with its complications and challenges. Our team also had to f
 
 
 ### Contributors:
-Ashmit JaiSarita Gupta - Game Design and Development
+![Ashmit JaiSarita Gupta](https://github.com/devilkiller-ag) - Game Design and Development
 <br>
-Ankush Verma - Website Development
+![Ankush Verma](https://github.com/AnkushVerma000) - Website Development
 <br>
 Divyam Jha - Content Writer
 <br>
