@@ -35,14 +35,15 @@ Each project comes with its complications and challenges. Our team also had to f
 
 ### Contributors:
 <p>
- <a href="https://github.com/devilkiller-ag" target="_blank" title="Go to Ashmit's Github Profile">Ashmit JaiSarita Gupta</a> - Game Design and Development
+ <a href="https://github.com/devilkiller-ag" target="_blank" title="Go to Ashmit's Github Profile">Ashmit JaiSarita Gupta</a> - Game Design and Development, Team Leader
  <br>
  <a href="https://github.com/AnkushVerma000" target="_blank" title="Go to Ankush's Github Profile">Ankush Verma</a> - Website Development
  <br>
- <a href="#" target="_blank" title="Go to Divyam's Github Profile">Divyam Jha</a> - Content Writer
+ <a href="#" target="_blank">Divyam Jha</a> - Content Writer
 </p>
-Divyam Jha - Content Writer
 <br>
+
+### This project is the winner of <a href="https://devfolio.co/projects/siyas-quantum-oddessy-5d5c" target="_blank" title="Devfolifo Siya's Quantum Odyssey"> Best Beginner Hack </a> Tittle in <a href="https://electrothon.specnith.com/" target="_blank" title="Electrothon 4.0"> Electrothon 4.0 </a> (presented by Major Hacking League)
 
 ### 📊 **Stats we got from idea validation:**
 
